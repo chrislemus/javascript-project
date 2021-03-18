@@ -1,0 +1,40 @@
+#game-screen {
+  display: block;
+  background: #ebf9ff;
+  height: 600px;
+  width: 100vw;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.ground-wrapper {
+  // margin-top: auto;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  // border: 1px solid red;
+}
+
+// .floor {
+//   width: 70px;
+//   height: 70px;
+//   background: url('/assets/platformerGraphicsDeluxe_Updated/Tiles/tiles_spritesheet.png')
+//     no-repeat;
+//   // background-size: 70;
+// }
+
+// #avatar {
+//   height: 80px;
+//   width: 58.5px;
+//   // background-size: contain;
+//   background: url('/assets/running-girl.png') no-repeat 0px 0px;
+//   background-size: 350px;
+//   // background: red;
+// }
+
+.title {
+  text-align: center;
+}
