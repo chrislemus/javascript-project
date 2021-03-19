@@ -25,7 +25,7 @@ var config = {
 const game = new Phaser.Game(config);
 
 function preload () {
-  this.load.atlasXML('round', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.png', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.xml');
+  this.load.atlasXML('sprites', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.png', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.xml');
 
 
     this.load.image('sky', 'http://labs.phaser.io/assets/skies/bigsky.png');
@@ -62,19 +62,13 @@ function create () {
   graphics.fillGradientStyle(0x0776EF, 0x0776EF, 0x65BFF0, 0x65BFF0, 1);
   graphics.fillRect(0, 0, 1080, 1920);
 
-  const complete = this.textures.get('round');
+  const complete = this.textures.get('sprites');
   var frames = complete.getFrameNames();
   // console.log(frames)
-  this.add.image(600, 1080, 'round', frames[29]);
-  // for (var i = 0; i < frames.length; i++)
-  // {
-  //     var x = Phaser.Math.Between(0, 800);
-  //     var y = Phaser.Math.Between(0, 600);
-
-  //     this.add.image(x, y, 'round', frames[i]);
-  // }
-  // complete.setCollideWorldBounds(true);
+  this.add.image(600, 1080, 'sprites', frames[29]);
   console.log(complete)
+  
+
  
   const platforms = this.physics.add.staticGroup();
   platforms.create(445, 540, 'grassMid');
@@ -83,11 +77,34 @@ function create () {
   //====== PLayer ======
 
   const player = this.physics.add.sprite(400, 300, 'dude');
-
-
-  player.setBounce(0.2);
-  player.setCollideWorldBounds(true);
   
+  player.setCollideWorldBounds(true);
+
+  const player1 = this.physics.add.sprite(600, 1080, 'sprites');
+  player1.setBounce(0.2);
+  player1.setCollideWorldBounds(true);
+  this.anims.create({
+    key: 'playerMoveLeft',
+    frameRate: 2,
+    frames:this.anims.generateFrameNames('sprites', { 
+      prefix: 'alienBeige_walk',
+      suffix: '.png',
+      start: 1, 
+      end: 2,
+      zeroPad: 1 
+    }),
+    repeat: -1
+  });
+
+  // player1.setVelocityX(-160);
+  // player1.anchor.setTo(.5,.5);
+  // player1.rotation = 135;
+  // player1.scaleY *= -1;
+  player1.flipX = true;
+
+  console.log(player1)
+  player1.anims.play('playerMoveLeft');
+  player1.setVelocityX(-20);
 
   this.anims.create({
     key: 'left',
@@ -133,6 +150,7 @@ function create () {
 
   //====== SHARABLE VARIABLES ======
   gameObjects.player = player
+  gameObjects.player1 = player1
   gameObjects.stars = stars
   gameObjects.bombs = bombs
   gameObjects.platforms = platforms
@@ -143,12 +161,13 @@ function create () {
 //========================
 
 function update() {
-  const {player, platforms} = gameObjects
+  const {player, player1, platforms} = gameObjects
   cursors = this.input.keyboard.createCursorKeys();
   if (cursors.left.isDown) {
       // game.camera.x -= 4;
       player.setVelocityX(-160);
       player.anims.play('left', true);
+      
   } else if (cursors.right.isDown) {
     console.log(game)
     console.log(this.camera)
@@ -157,6 +176,8 @@ function update() {
   } else {
       player.setVelocityX(0);
       player.anims.play('turn');
+
+
   }
 
   if (cursors.up.isDown && player.body.touching.down) {
