@@ -25,10 +25,15 @@ var config = {
 const game = new Phaser.Game(config);
 
 function preload () {
+  this.load.atlasXML('round', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.png', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.xml');
+
+
     this.load.image('sky', 'http://labs.phaser.io/assets/skies/bigsky.png');
     this.load.image('logo', 'http://labs.phaser.io/assets/sprites/phaser3-logo.png');
     this.load.image('red', 'http://labs.phaser.io/assets/particles/red.png');
-    this.load.image('complete', '/assets/platformer-pack-redux-360-assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.png')
+    this.load.spritesheet('complete', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.png', {
+      frameWidth: 128, frameHeight: 128
+    })
     this.load.spritesheet('runningGirl', '/assets/running-girl.png', {
       frameWidth: 117, frameHeight: 116
     });
@@ -51,11 +56,25 @@ const gameData = {
 
 function create () {
 
-  this.add.image(400, 600, 'sky');
-  this.add.image(400, 1800, 'sky');
+  //====== BACKGROUND ======
+  // this.add.image(400, 1800, 'sky');
   var graphics = this.add.graphics();
   graphics.fillGradientStyle(0x0776EF, 0x0776EF, 0x65BFF0, 0x65BFF0, 1);
   graphics.fillRect(0, 0, 1080, 1920);
+
+  const complete = this.textures.get('round');
+  var frames = complete.getFrameNames();
+  // console.log(frames)
+  this.add.image(600, 1080, 'round', frames[29]);
+  // for (var i = 0; i < frames.length; i++)
+  // {
+  //     var x = Phaser.Math.Between(0, 800);
+  //     var y = Phaser.Math.Between(0, 600);
+
+  //     this.add.image(x, y, 'round', frames[i]);
+  // }
+  // complete.setCollideWorldBounds(true);
+  console.log(complete)
  
   const platforms = this.physics.add.staticGroup();
   platforms.create(445, 540, 'grassMid');
@@ -63,7 +82,9 @@ function create () {
 
   //====== PLayer ======
 
-  const player = this.physics.add.sprite(400, 100, 'dude');
+  const player = this.physics.add.sprite(400, 300, 'dude');
+
+
   player.setBounce(0.2);
   player.setCollideWorldBounds(true);
   
