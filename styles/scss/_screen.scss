@@ -1,13 +1,23 @@
-#game-screen {
-  // display: block;
-  background: #ebf9ff;
-  height: 600px;
-  width: 100vw;
-  max-width: 800px;
-  margin: 0 auto;
-  // overflow-x: hidden;
-  // position: relative;
+canvas {
+  box-shadow: 0 0px 2.2px rgba(0, 140, 255, 0.89),
+    0 0px 5.3px rgba(21, 150, 255, 0.89), 0 0px 10px rgba(0, 140, 255, 0.89),
+    0 0px 17.9px rgba(0, 140, 255, 0.89), 0 0px 33.4px rgba(0, 140, 255, 0.89),
+    0 0px 80px rgba(0, 140, 255, 0.89);
 }
+body {
+  background-image: linear-gradient(#0776ef, #65bff0);
+  // background: #0776ef;
+}
+// #game-screen {
+//   // display: block;
+//   background: #ebf9ff;
+//   height: 600px;
+//   width: 100vw;
+//   max-width: 800px;
+//   margin: 0 auto;
+//   // overflow-x: hidden;
+//   // position: relative;
+// }
 
 // .ground-wrapper {
 //   // margin-top: auto;
