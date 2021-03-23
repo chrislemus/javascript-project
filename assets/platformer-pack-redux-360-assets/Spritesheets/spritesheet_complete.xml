@@ -5,11 +5,14 @@
 	<SubTexture name="alienBeige_front.png" x="910" y="516" width="128" height="256"/>
 	<SubTexture name="alienBeige_hit.png" x="910" y="258" width="128" height="256"/>
 	<SubTexture name="alienBeige_jump.png" x="910" y="0" width="128" height="256"/>
-	<SubTexture name="alienBeige_stand.png" x="780" y="1548" width="128" height="256"/>
+	<SubTexture name="alienBeige_stand.png" x="789" y="1656" width="112" height="149"/>
+	<!-- <SubTexture name="alienBeige_stand.png" x="780" y="1548" width="128" height="256"/> -->
 	<SubTexture name="alienBeige_swim1.png" x="780" y="1290" width="128" height="256"/>
 	<SubTexture name="alienBeige_swim2.png" x="780" y="1032" width="128" height="256"/>
-	<SubTexture name="alienBeige_walk1.png" x="780" y="774" width="128" height="256"/>
-	<SubTexture name="alienBeige_walk2.png" x="780" y="516" width="128" height="256"/>
+	<SubTexture name="alienBeige_walk1.png" x="790" y="877" width="109" height="155"/>
+	<SubTexture name="alienBeige_walk2.png" x="787" y="614" width="114" height="157"/>
+	<!-- <SubTexture name="alienBeige_walk1.png" x="780" y="774" width="128" height="256"/>
+	<SubTexture name="alienBeige_walk2.png" x="780" y="516" width="128" height="256"/> -->
 	<SubTexture name="alienBlue_climb1.png" x="780" y="258" width="128" height="256"/>
 	<SubTexture name="alienBlue_climb2.png" x="780" y="0" width="128" height="256"/>
 	<SubTexture name="alienBlue_duck.png" x="650" y="1548" width="128" height="256"/>
