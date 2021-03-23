@@ -1,3 +1,7 @@
+// import { Bird } from "./player.js";
+// console.log(Bird)
+// import "phaser";
+
 var config = {
     // type: Phaser.AUTO,
     // width: 800,
@@ -23,7 +27,7 @@ const game = new Phaser.Game(config);
 let completeSprites;
 
 function preload () {
-  completeSprites = this.load.atlasXML('sprites', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.png', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.xml');
+  const completeSprites = this.load.atlasXML('sprites', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.png', '/assets/platformer-pack-redux-360-assets/Spritesheets/spritesheet_complete.xml');
     // this.load.image('sky', 'http://labs.phaser.io/assets/skies/bigsky.png');
 }
 
@@ -36,39 +40,44 @@ const gameData = {
 //      CREATE
 //========================
 
-let screenGrid;
+
+class Player extends Phaser.GameObjects.Sprite {
+  constructor(scene, x, y, key, frame) {
+    super(scene, x, y, key, frame);
+    // super(params.scene, params.x, params.y, params.key, params.frame);
+    scene.add.existing(this);
+    // this.setScale(3);
+    // this.setOrigin(0, 0);
+
+    // variables
+    // this.isDead = false;
+    // this.isFlapping = false;
+
+    // physics
+    this.scene.physics.world.enable(this);
+    this.body.setGravityY(300);
+    this.body.setBounce(0.2)
+    this.body.setCollideWorldBounds(true)
 
 
-// window.addEventListener('resize', () => {
-//   console.log(window.innerWidth)
-// })
 
-// console.log(window.mobileAndTabletCheck)
+    // input
+    // this.jumpKey = this.scene.input.keyboard.addKey(
+    //   Phaser.Input.Keyboard.KeyCodes.SPACE
+    // );
+
+    
+    console.log(this)
+  }
+}
 
 function create () {
 
-    //====== GRID ======
-  // screenGrid = new AlignGrid({scene:this, cols: 22, rows: 39})
-  // screenGrid.showNumbers();
-  
-  // const sampleDirt = this.add.image(0, 0, "sprites", `grassMid.png`)
-  // const sampleDirt2 = platforms.create(0, 0, "sprites", `grassMid.png`)
-  // Align.scaleToGameW(sampleDirt, .1)
-  // agrid.placeAtIndex(6, sampleDirt)
-  // agrid.placeAtIndex(3, sampleDirt2)
-  // console.log(sampleDirt2)
-  // console.log(sampleDirt2)
-
-
   //====== BACKGROUND ======
   // this.add.image(400, 1800, 'sky');
-  var graphics = this.add.graphics();
+  const  graphics = this.add.graphics();
   graphics.fillGradientStyle(0x0776EF, 0x0776EF, 0x65BFF0, 0x65BFF0, 1);
   graphics.fillRect(0, 0, 1080, 1920);
-
-  // const complete = this.textures.get('sprites');
-  // var frames = complete.getFrameNames();
-  // this.add.image(600, 1080, 'sprites', frames[29]);
 
 
 
@@ -119,10 +128,7 @@ function create () {
 
   //====== PLayer ======
 
-  const player = this.physics.add.sprite(250, 1655, "sprites", "alienBeige_walk1.png");
-  player.setCollideWorldBounds(true).setBounce(0.2);
-  player.body.setGravityY(300)
-
+  const player = new Player(this, 250, 1655, "sprites", "alienBeige_walk1.png");
 
 
   this.anims.create({
@@ -158,12 +164,9 @@ function create () {
   stars.children.iterate(function (child) {
       child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.2));
   });
-  // testPlat
   this.physics.add.collider(stars, platforms);
-  // this.physics.add.collider(testPlat, platforms);
-  // this.physics.add.collider(testPlat, stars);
-  this.physics.add.overlap(player, stars, collectStar, null, this);
 
+  this.physics.add.overlap(player, stars, collectStar, null, this);
 
   
   gameData.scoreText =  this.add.text(16, 30, 'score: 0', { fontSize: '60px', fill: '#000' });
@@ -190,27 +193,26 @@ function create () {
 //========================
 
 function update() {
-  this.physics.add.collider(gameObjects.bombs, gameObjects.platforms);
   const {player, platforms} = gameObjects
   cursors = this.input.keyboard.createCursorKeys();
   touch = this.input.activePointer
-  if (cursors.left.isDown) {
-    player.flipX = true;
-    player.setVelocityX(-800);
-    player.anims.play('playerMove', true);
+  // if (cursors.left.isDown) {
+  //   player.flipX = true;
+  //   player.setVelocityX(-800);
+  //   player.anims.play('playerMove', true);
       
-  } else if (cursors.right.isDown) {
-    player.flipX = false;
-    player.setVelocityX(800);
-    player.anims.play('playerMove', true);
-  } else {
-    player.setVelocityX(0);
-    player.anims.play('playerStand');
-  }
+  // } else if (cursors.right.isDown) {
+  //   player.flipX = false;
+  //   player.setVelocityX(800);
+  //   player.anims.play('playerMove', true);
+  // } else {
+  //   player.setVelocityX(0);
+  //   player.anims.play('playerStand');
+  // }
 
-  if (cursors.up.isDown && player.body.touching.down) {
-      player.setVelocityY(-430);
-  }
+  // if (cursors.up.isDown && player.body.touching.down) {
+  //     player.setVelocityY(-430);
+  // }
   if (game.input.mousePointer.isDown || touch.isDown) {
     const {x, y} = this.input.mousePointer
     
@@ -310,3 +312,5 @@ function DimensionHelper(newObjects) {
   
 
 }
+
+
